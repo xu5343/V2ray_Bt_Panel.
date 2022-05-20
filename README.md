@@ -25,7 +25,7 @@ Update：
 wget -N --no-check-certificate "https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh
 ./tcp.sh
 
-安装V2ray-ws-tls-With-Bt-Panel：伪装：pinhg55s（自定义修改即可）
+安装V2ray-ws-tls-With-Bt-Panel：分流：pinhg55s（自定义修改即可）
 
 wget -N --no-check-certificate https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/v2inst.sh && sh v2inst.sh pinhg55s
 
