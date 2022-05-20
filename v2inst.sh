@@ -121,7 +121,7 @@ v2ray_VMESS_install() {
 
     sed -i '$d' /www/server/panel/vhost/nginx/${domain}.conf
     cat >>/www/server/panel/vhost/nginx/${domain}.conf <<EOF
-        location /6986f19137896fba/
+        location /$1/
         {
         proxy_redirect off;
         proxy_pass http://127.0.0.1:${PORT};
@@ -152,7 +152,7 @@ EOF
   "net": "ws",
   "type": "none",
   "host": "${domain}",
-  "path": "/$0/",
+  "path": "/$1/",
   "tls": "tls",
   "state": "${webstate}"
 }
@@ -173,7 +173,7 @@ v2ray_VLESS_install() {
     sed -i '$d' /www/server/panel/vhost/nginx/${domain}.conf
     cat >>/www/server/panel/vhost/nginx/${domain}.conf <<EOF
 
-        location /6986f19137896fba/ { 
+        location /$1/ { 
         proxy_redirect off;
         proxy_pass http://127.0.0.1:${PORT}; 
         proxy_http_version 1.1;
@@ -203,7 +203,7 @@ EOF
   "net": "ws",
   "type": "none",
   "host": "${domain}",
-  "path": "/6986f19137896fba/",
+  "path": "/$1/",
   "tls": "tls",
   "state": "${webstate}"
 }
@@ -234,7 +234,7 @@ V2Ray_VMESS_information() {
         echo -e "${Green} 加密方式（security）：${Font} auto"
         echo -e "${Green} 传输协议（network）：${Font} ws"
         echo -e "${Green} 伪装类型（type）：${Font} none"
-        echo -e "${Green} 路径（不要落下/）：${Font} /$0/"
+        echo -e "${Green} 路径（不要落下/）：${Font} /$1/"
         echo -e "${Green} 底层传输安全：${Font} tls"
         echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
@@ -256,7 +256,7 @@ V2Ray_VLESS_information() {
         echo -e "${Green} 加密方式（security）：${Font} none"
         echo -e "${Green} 传输协议（network）：${Font} ws"
         echo -e "${Green} 伪装类型（type）：${Font} none"
-        echo -e "${Green} 路径（不要落下/）：${Font} /$0/"
+        echo -e "${Green} 路径（不要落下/）：${Font} /$1/"
         echo -e "${Green} 底层传输安全：${Font} tls"
         echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
