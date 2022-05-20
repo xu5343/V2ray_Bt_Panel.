@@ -239,7 +239,9 @@ V2Ray_VMESS_information() {
         echo -e "${Green} 伪装类型（type）：${Font} none"
         echo -e "${Green} 路径（不要落下/）：${Font} /${path}/"
         echo -e "${Green} 底层传输安全：${Font} tls"
-		echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
+		echo -e "${Blue}-----------------------------------------------------${Font}"
+		echo -e "${Red} V2ray配置端口：${PORT}"
+		echo -e "${Red} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
         echo -e "${Yellow} URL导入链接:${vmess_link} ${Font}"
     }
@@ -261,7 +263,9 @@ V2Ray_VLESS_information() {
         echo -e "${Green} 伪装类型（type）：${Font} none"
         echo -e "${Green} 路径（不要落下/）：${Font} /${path}/"
         echo -e "${Green} 底层传输安全：${Font} tls"
-		echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
+		echo -e "${Blue}-----------------------------------------------------${Font}"
+		echo -e "${Red} V2ray配置端口：${PORT}"
+		echo -e "${Red} 相关配置路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
         echo -e "${Yellow} URL导入链接:${vless_link} ${Font}"
     }
