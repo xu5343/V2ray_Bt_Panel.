@@ -1,32 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@xu5343 
-xu5343
-/
-V2ray_Bt_Panel.
-Public
-Code
-Issues
-Pull requests
-Projects
-Wiki
-Security
-Insights
-Settings
-V2ray_Bt_Panel./v2inst.sh
-@xu5343
-xu5343 Update v2inst.sh
-Latest commit 3c81796 2 minutes ago
- History
- 2 contributors
-@hxlive@xu5343
-569 lines (507 sloc)  15.8 KB
-   
 #!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
@@ -204,6 +175,7 @@ v2ray_VLESS_install() {
 
     sed -i '$d' /www/server/panel/vhost/nginx/${domain}.conf
     cat >>/www/server/panel/vhost/nginx/${domain}.conf <<EOF
+
         location /${path}/ { 
         proxy_redirect off;
         proxy_pass http://127.0.0.1:${PORT}; 
@@ -244,9 +216,9 @@ EOF
 
 V2ray_info_query() {
     if [[ ! -f "/usr/local/vmess_info.json" ]]; then
-        grep "${path}" "/usr/local/vless_info.json" | awk -F '"' '{print $4}'
+        grep "$1" "/usr/local/vless_info.json" | awk -F '"' '{print $4}'
     else
-        grep "${path}" "/usr/local/vmess_info.json" | awk -F '"' '{print $4}'
+        grep "$1" "/usr/local/vmess_info.json" | awk -F '"' '{print $4}'
     fi
 }
 
@@ -267,7 +239,7 @@ V2Ray_VMESS_information() {
         echo -e "${Green} 伪装类型（type）：${Font} none"
         echo -e "${Green} 路径（不要落下/）：${Font} /${path}/"
         echo -e "${Green} 底层传输安全：${Font} tls"
-        echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
+		echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
         echo -e "${Yellow} URL导入链接:${vmess_link} ${Font}"
     }
@@ -276,7 +248,7 @@ V2Ray_VMESS_information() {
 
 V2Ray_VLESS_information() {
     clear
-    vless_link="vless://$(V2ray_info_query '\"id\"')@$(V2ray_info_query '\"add\"'):443?encryption=none&security=tls&type=ws&host=$(V2ray_info_query '\"add\"')&path=%2f6986f19137896fba%2f#$(V2ray_info_query '\"ps\"')"
+    vless_link="vless://$(V2ray_info_query '\"id\"')@$(V2ray_info_query '\"add\"'):443?encryption=none&security=tls&type=ws&host=$(V2ray_info_query '\"add\"')&path=%2f${path}%2f#$(V2ray_info_query '\"ps\"')"
     {
         echo -e "${Green} V2ray vless+ws+tls 安装成功${Font}"
         echo -e "${Blue}=====================================================${Font}"
@@ -289,7 +261,7 @@ V2Ray_VLESS_information() {
         echo -e "${Green} 伪装类型（type）：${Font} none"
         echo -e "${Green} 路径（不要落下/）：${Font} /${path}/"
         echo -e "${Green} 底层传输安全：${Font} tls"
-        echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
+		echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
         echo -e "${Yellow} URL导入链接:${vless_link} ${Font}"
     }
@@ -312,33 +284,40 @@ server
     #error_page 404/404.html;
     #HTTP_TO_HTTPS_START
     if (\$server_port !~ 443){
-        rewrite ^(/.*)$ https://\$host\${path} permanent;
+        rewrite ^(/.*)$ https://\$host\$1 permanent;
     }
     #HTTP_TO_HTTPS_END
     ssl_certificate    /www/server/panel/vhost/cert/${domain}/fullchain.cer;
     ssl_certificate_key    /www/server/panel/vhost/cert/${domain}/privkey.key;
+
     ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
     ssl_prefer_server_ciphers on;
     ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 10m;
     error_page 497  https://\$host\$request_uri;
+
     #SSL-END
+
     #ERROR-PAGE-START  错误页配置，可以注释、删除或修改
     #error_page 404 /404.html;
     #error_page 502 /502.html;
     #ERROR-PAGE-END
+
     #PHP-INFO-START  PHP引用配置，可以注释或修改
     include enable-php-00.conf;
     #PHP-INFO-END
+
     #REWRITE-START URL重写规则引用,修改后将导致面板设置的伪静态规则失效
     include /www/server/panel/vhost/rewrite/${domain}.conf;
     #REWRITE-END
+
     #禁止访问的文件或目录
     location ~ ^/(\.user.ini|\.htaccess|\.git|\.svn|\.project|LICENSE|README.md)
     {
         return 404;
     }
+
     #一键申请SSL证书验证目录相关设置
     location ~ \.well-known{
         allow all;
@@ -350,6 +329,7 @@ server
         error_log off;
         access_log /dev/null;
     }
+
     location ~ .*\.(js|css)?$
     {
         expires      12h;
@@ -402,7 +382,7 @@ Write_VMESS_Conf() {
       "network": "ws",
       "security": "auto",
       "wsSettings": {
-        "path": "/6986f19137896fba/",
+        "path": "/${path}/",
         "headers": {
           "Host": "${domain}"
         }
@@ -484,7 +464,7 @@ Write_VLESS_Conf() {
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-        "path": "/6986f19137896fba/"
+        "path": "/${path}/"
         }
       }
     }
@@ -527,7 +507,7 @@ uninstall_V2Ray() {
         rm -rf /www/server/panel/vhost/cert/$(V2ray_info_query '\"add\"')
         rm -rf /www/wwwroot/$(V2ray_info_query '\"add\"')/
     else
-        sed -i "/\location \/6986f19137896fba\//,/}/d"  /www/server/panel/vhost/nginx/$(V2ray_info_query '\"add\"').conf
+        sed -i "/\location \/${path}\//,/}/d"  /www/server/panel/vhost/nginx/$(V2ray_info_query '\"add\"').conf
     fi
     rm -rf /etc/systemd/system/v2ray.service
     rm -rf /usr/bin/v2ray
@@ -590,16 +570,3 @@ Main_menu() {
 }
 
 Main_menu
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete
