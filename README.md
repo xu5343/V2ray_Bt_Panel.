@@ -27,7 +27,7 @@ wget -N --no-check-certificate "https://raw.githubusercontent.com/chiakge/Linux-
 
 安装V2ray-ws-tls-With-Bt-Panel：
 
-bash <(curl -s -L https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/v2inst.sh)
+wget -N --no-check-certificate https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/v2inst.sh && sh v2inst.sh shyceg62ss
 
  
 写在最后：
