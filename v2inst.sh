@@ -346,7 +346,7 @@ Website_arrange() {
         mkdir -p /www/wwwroot/${domain}
     fi    
     cd /www/wwwroot/${domain}
-    wget -nc https://github.com/hxlive/V2ray_ws_tls_With_Bt_Panel/raw/master/SlideShow.zip
+    wget -nc https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/SlideShow.zip
     unzip SlideShow.zip
 }
 
