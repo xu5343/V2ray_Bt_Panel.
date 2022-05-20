@@ -1,3 +1,32 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@xu5343 
+xu5343
+/
+V2ray_Bt_Panel.
+Public
+Code
+Issues
+Pull requests
+Projects
+Wiki
+Security
+Insights
+Settings
+V2ray_Bt_Panel./v2inst.sh
+@xu5343
+xu5343 Update v2inst.sh
+Latest commit 3c81796 2 minutes ago
+ History
+ 2 contributors
+@hxlive@xu5343
+569 lines (507 sloc)  15.8 KB
+   
 #!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
@@ -61,6 +90,9 @@ install_prepare() {
 
     echo -e "${Yellow} 请确保已完成伪装网址的域名解析 ${Font}"
     read -rp "请输入域名信息(eg:www.hanx.vip):" domain
+	
+	echo -e "${Yellow} 分流设置 ${Font}"
+    read -rp "请输入分流信息(eg:imyyiu):" path
 
     webstate=26
     Website_config
@@ -121,7 +153,7 @@ v2ray_VMESS_install() {
 
     sed -i '$d' /www/server/panel/vhost/nginx/${domain}.conf
     cat >>/www/server/panel/vhost/nginx/${domain}.conf <<EOF
-        location /$1/
+        location /${path}/
         {
         proxy_redirect off;
         proxy_pass http://127.0.0.1:${PORT};
@@ -152,7 +184,7 @@ EOF
   "net": "ws",
   "type": "none",
   "host": "${domain}",
-  "path": "/$1/",
+  "path": "/${path}/",
   "tls": "tls",
   "state": "${webstate}"
 }
@@ -172,8 +204,7 @@ v2ray_VLESS_install() {
 
     sed -i '$d' /www/server/panel/vhost/nginx/${domain}.conf
     cat >>/www/server/panel/vhost/nginx/${domain}.conf <<EOF
-
-        location /$1/ { 
+        location /${path}/ { 
         proxy_redirect off;
         proxy_pass http://127.0.0.1:${PORT}; 
         proxy_http_version 1.1;
@@ -203,7 +234,7 @@ EOF
   "net": "ws",
   "type": "none",
   "host": "${domain}",
-  "path": "/$1/",
+  "path": "/${path}/",
   "tls": "tls",
   "state": "${webstate}"
 }
@@ -213,9 +244,9 @@ EOF
 
 V2ray_info_query() {
     if [[ ! -f "/usr/local/vmess_info.json" ]]; then
-        grep "$1" "/usr/local/vless_info.json" | awk -F '"' '{print $4}'
+        grep "${path}" "/usr/local/vless_info.json" | awk -F '"' '{print $4}'
     else
-        grep "$1" "/usr/local/vmess_info.json" | awk -F '"' '{print $4}'
+        grep "${path}" "/usr/local/vmess_info.json" | awk -F '"' '{print $4}'
     fi
 }
 
@@ -234,7 +265,7 @@ V2Ray_VMESS_information() {
         echo -e "${Green} 加密方式（security）：${Font} auto"
         echo -e "${Green} 传输协议（network）：${Font} ws"
         echo -e "${Green} 伪装类型（type）：${Font} none"
-        echo -e "${Green} 路径（不要落下/）：${Font} /$1/"
+        echo -e "${Green} 路径（不要落下/）：${Font} /${path}/"
         echo -e "${Green} 底层传输安全：${Font} tls"
         echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
@@ -256,7 +287,7 @@ V2Ray_VLESS_information() {
         echo -e "${Green} 加密方式（security）：${Font} none"
         echo -e "${Green} 传输协议（network）：${Font} ws"
         echo -e "${Green} 伪装类型（type）：${Font} none"
-        echo -e "${Green} 路径（不要落下/）：${Font} /$1/"
+        echo -e "${Green} 路径（不要落下/）：${Font} /${path}/"
         echo -e "${Green} 底层传输安全：${Font} tls"
         echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
@@ -281,40 +312,33 @@ server
     #error_page 404/404.html;
     #HTTP_TO_HTTPS_START
     if (\$server_port !~ 443){
-        rewrite ^(/.*)$ https://\$host\$1 permanent;
+        rewrite ^(/.*)$ https://\$host\${path} permanent;
     }
     #HTTP_TO_HTTPS_END
     ssl_certificate    /www/server/panel/vhost/cert/${domain}/fullchain.cer;
     ssl_certificate_key    /www/server/panel/vhost/cert/${domain}/privkey.key;
-
     ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
     ssl_prefer_server_ciphers on;
     ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 10m;
     error_page 497  https://\$host\$request_uri;
-
     #SSL-END
-
     #ERROR-PAGE-START  错误页配置，可以注释、删除或修改
     #error_page 404 /404.html;
     #error_page 502 /502.html;
     #ERROR-PAGE-END
-
     #PHP-INFO-START  PHP引用配置，可以注释或修改
     include enable-php-00.conf;
     #PHP-INFO-END
-
     #REWRITE-START URL重写规则引用,修改后将导致面板设置的伪静态规则失效
     include /www/server/panel/vhost/rewrite/${domain}.conf;
     #REWRITE-END
-
     #禁止访问的文件或目录
     location ~ ^/(\.user.ini|\.htaccess|\.git|\.svn|\.project|LICENSE|README.md)
     {
         return 404;
     }
-
     #一键申请SSL证书验证目录相关设置
     location ~ \.well-known{
         allow all;
@@ -326,7 +350,6 @@ server
         error_log off;
         access_log /dev/null;
     }
-
     location ~ .*\.(js|css)?$
     {
         expires      12h;
@@ -567,3 +590,16 @@ Main_menu() {
 }
 
 Main_menu
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
