@@ -152,7 +152,7 @@ EOF
   "net": "ws",
   "type": "none",
   "host": "${domain}",
-  "path": "/6986f19137896fba/",
+  "path": "/$0/",
   "tls": "tls",
   "state": "${webstate}"
 }
@@ -236,6 +236,7 @@ V2Ray_VMESS_information() {
         echo -e "${Green} 伪装类型（type）：${Font} none"
         echo -e "${Green} 路径（不要落下/）：${Font} /6986f19137896fba/"
         echo -e "${Green} 底层传输安全：${Font} tls"
+        echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
         echo -e "${Yellow} URL导入链接:${vmess_link} ${Font}"
     }
@@ -257,6 +258,7 @@ V2Ray_VLESS_information() {
         echo -e "${Green} 伪装类型（type）：${Font} none"
         echo -e "${Green} 路径（不要落下/）：${Font} /6986f19137896fba/"
         echo -e "${Green} 底层传输安全：${Font} tls"
+        echo -e "${Green} 相关配置修改路径：${Font} /usr/local/etc/v2ray/config.json"
         echo -e "${Blue}=====================================================${Font}" 
         echo -e "${Yellow} URL导入链接:${vless_link} ${Font}"
     }
