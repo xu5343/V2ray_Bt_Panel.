@@ -32,3 +32,5 @@ bash <(curl -s -L https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./maste
  
 写在最后：
 网络上有很多已经开发多时，比较稳定的部署脚本了，但是由于并不能快速的满足自己的需求，同时为了能够更加有效的利用VPS的资源，而不仅仅是作为一个梯子，所以就花了点时间，对v2ray进行了一些学习，同时参考了一些成熟的脚本思路，自己写了一个适合自己的脚本。不喜勿喷！
+
+来源:https://github.com/hxlive/V2ray_ws_tls_With_Bt_Panel
