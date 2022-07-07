@@ -51,7 +51,7 @@ A unified platform for anti-censorship.
 来源:https://github.com/hxlive/V2ray_ws_tls_With_Bt_Panel
 
 -----------------------------------------------
-V2Ray配置教程(新2022-04)
+## V2Ray配置教程(新2022-04)
 其他安装查看：https://www.xth8013.com/website/blogArticle/detail/182
 
 ~~~
