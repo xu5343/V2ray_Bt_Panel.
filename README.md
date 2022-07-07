@@ -21,14 +21,29 @@ Update：
 
 注1：
 配合使用 chiakge / Linux-NetSpeed 可以获得更好的加速
-
+~~~
 wget -N --no-check-certificate "https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh
 ./tcp.sh
-
+~~~
 安装V2ray-ws-tls-With-Bt-Panel：
-
+~~~
 wget -N --no-check-certificate https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/v2inst.sh && sh v2inst.sh
+~~~
 
+卸载重新安装错误修复记录：
+~~~
+v2ray link
+V2Ray 4.40.1 (V2Fly, a community-driven edition of V2Ray.) Custom (go1.16.5 linux/amd64)
+A unified platform for anti-censorship.
+2021/08/08 02:45:16 Using config from STDIN
+2021/08/08 02:45:16 [Info] main/jsonem: Reading config: stdin: //在此处一直无响应
+^C
+
+解决方法：
+
+如果 V2Ray 无法启动，请附上 --test 输出。
+/usr/local/bin/v2ray --test --config /usr/local/etc/v2ray/config.json  //请按实际情况修改
+~~~
  
 写在最后：
 网络上有很多已经开发多时，比较稳定的部署脚本了，但是由于并不能快速的满足自己的需求，同时为了能够更加有效的利用VPS的资源，而不仅仅是作为一个梯子，所以就花了点时间，对v2ray进行了一些学习，同时参考了一些成熟的脚本思路，自己写了一个适合自己的脚本。不喜勿喷！
