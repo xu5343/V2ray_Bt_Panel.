@@ -138,3 +138,24 @@ Windows v2ray客户端：
 【v2ray-windows-64.zip Github Releases】 https://github.com/v2fly/v2ray-core/releases/download/v4.31.0/v2ray-windows-64.zip
 
 对v2ray-windows-64.zip 和 v2rayN进行解压，然后将 v2rayN 目录下所有文件复制到v2ray-windows-64解压后的目录，即两个下载好的文件需要在同一目录。
+
+Android v2ray客户端：
+下载方式一：网盘(APK直接安装)
+
+【APK】：https://cloud.degoo.com/share/msgcYbsWQVoz2EIbSXr5bw 或 https://github.com/xyz690/cloudimg/blob/main/data/v2rayNG_1.4.13_arm64-v8a.apk
+
+下载方式二：GitHub
+一般手机是arm架构，我就直接给出对应客户端了，其他架构需要你去网上找设备相应的CPU架构并进行选择下载：
+【v2rayNG Github Releases】https://github.com/2dust/v2rayNG/releases/download/1.4.13/v2rayNG_1.4.13_arm64-v8a.apk
+
+(✪ω✪)
+
+MacOS v2ray客户端:
+https://github.com/Cenmrev/V2RayX/releases
+
+(✪ω✪)
+
+Linux内核 v2ray客户端：
+Debian、Ubantu、CentOS等电脑桌面发行版（不能完全通用，可以尝试一下）
+https://github.com/jiangxufeng/v2rayL/releases
+(✪ω✪)
