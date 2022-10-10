@@ -53,6 +53,9 @@ A unified platform for anti-censorship.
 -----------------------------------------------
 ## V2Ray配置教程(新2022-04)
 其他安装查看：https://www.xth8013.com/website/blogArticle/detail/182  
+~~~  
+bash <(curl -s -L https://git.io/v2ray.sh)
+~~~  
 ~~~
 bash <(curl -sL https://raw.githubusercontent.com/daveleung/hijkpw-scripts-mod/main/v2ray_mod1.sh)
 ~~~  
