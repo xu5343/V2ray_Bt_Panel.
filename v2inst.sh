@@ -114,7 +114,7 @@ acme_SSL() {
 
 v2ray_VMESS_install() {
     curl -O https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/install-release.sh
-    bash install-release.sh --version v4.45.2
+    bash install-release.sh --version v4.45.0
     
     [ -z "$UUID" ] && UUID=$(cat /proc/sys/kernel/random/uuid)
     PORT=$((RANDOM + 10000))
@@ -165,7 +165,7 @@ EOF
 
 v2ray_VLESS_install() {
     curl -O https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/install-release.sh
-    bash install-release.sh --version v4.45.2
+    bash install-release.sh --version v4.45.0
     
     [ -z "$UUID" ] && UUID=$(cat /proc/sys/kernel/random/uuid)
     PORT=$((RANDOM + 10000))
