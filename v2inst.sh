@@ -113,7 +113,7 @@ acme_SSL() {
 
 
 v2ray_VMESS_install() {
-    curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
+    curl -O https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/install-release.sh
     bash install-release.sh
     
     [ -z "$UUID" ] && UUID=$(cat /proc/sys/kernel/random/uuid)
@@ -164,7 +164,7 @@ EOF
 
 
 v2ray_VLESS_install() {
-    curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
+    curl -O https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/install-release.sh
     bash install-release.sh
     
     [ -z "$UUID" ] && UUID=$(cat /proc/sys/kernel/random/uuid)
@@ -550,7 +550,7 @@ Main_menu() {
         Display_V2Ray_information
         ;;
     4)
-        curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
+        curl -O https://raw.githubusercontent.com/xu5343/V2ray_Bt_Panel./master/install-release.sh
         bash install-release.sh
         ;;
     5)
